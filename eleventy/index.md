@@ -1,6 +1,6 @@
 ---
 layout: default
-title: My Favorite Movies
+title: My All-Time Favorite Movies
 ---
 
 # {{title}}
