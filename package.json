@@ -2,5 +2,8 @@
   "private": true,
   "name": "smashing-jamstack",
   "author": "Jason Lengstorf <jason@lengstorf.com> (https://jason.af)",
-  "license": "MIT"
+  "license": "MIT",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "git@github.com:jlengstorf/smashing-jamstack.git"
 }

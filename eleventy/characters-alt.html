@@ -1,0 +1,18 @@
+---
+layout: default
+title: My Favorite Movies
+---
+
+<h1>{{title}}</h1>
+
+<div class="items">
+  {% for character in characters %}
+  <div class="item">
+    <img alt="{{ character.name }}" src="{{ character.image }}" />
+    <h2>
+      {{ character.name }} {% if character.isMyFavorite == true %}is my
+      favorite{% endif %}
+    </h2>
+  </div>
+  {% endfor %}
+</div>
