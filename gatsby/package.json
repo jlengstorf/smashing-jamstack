@@ -1,0 +1,15 @@
+{
+  "name": "smashing-jamstack-gatsby",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "Jason Lengstorf <jason@lengstorf.com> (https://lengstorf.com)",
+  "license": "MIT",
+  "dependencies": {
+    "gatsby": "^2.24.53",
+    "gatsby-source-filesystem": "^2.3.27",
+    "gatsby-source-graphql": "^2.7.2",
+    "gatsby-transformer-json": "^2.4.11",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
