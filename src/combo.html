@@ -1,0 +1,64 @@
+---
+layout: default
+title: Search for a Photo on Unsplash
+---
+
+<style>
+  .output {
+    background-color: #eee;
+    margin-top: 2rem;
+    padding: 2rem;
+  }
+
+  .output:empty {
+    display: none;
+  }
+
+  .output img {
+    width: 100%;
+  }
+</style>
+
+<h1>{{ title }}</h1>
+
+<form action="/.netlify/functions/image-with-color" method="POST">
+  <label for="query">
+    Search
+    <input type="text" id="query" name="query" />
+  </label>
+  <button type="submit">Submit</button>
+</form>
+
+<div class="output"></div>
+
+<script>
+  const form = document.querySelector('form');
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const data = new FormData(event.target);
+    const query = data.get('query');
+
+    const { photo, colorArray } = await fetch(
+      '/.netlify/functions/image-with-color',
+      {
+        method: 'POST',
+        body: JSON.stringify({ query }),
+      },
+    ).then((response) => response.json());
+
+    const output = document.querySelector('.output');
+
+    output.innerHTML = '';
+
+    const img = document.createElement('img');
+    img.src = photo.urls.regular;
+    img.alt = photo.alt_description;
+
+    output.appendChild(img);
+
+    const [red, green, blue] = colorArray;
+    output.style.backgroundColor = `rgb(${red} ${green} ${blue})`;
+  });
+</script>
