@@ -2,5 +2,12 @@
   "private": true,
   "name": "smashing-jamstack",
   "author": "Jason Lengstorf <jason@lengstorf.com> (https://jason.af)",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "build": "eleventy --input=src",
+    "dev": "eleventy --input=src --serve"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^0.11.0"
+  }
 }
