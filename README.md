@@ -7,7 +7,7 @@
   Jamstack! A Smashing Workshop
 </h1>
 <h3 align="center">
-  This is the workshop code to accompany the [Jamstack! Smashing workshop](https://smashingconf.com/online-workshops/workshops/jason-lengstorf/).
+  This is the workshop code to accompany the <a href="https://smashingconf.com/online-workshops/workshops/jason-lengstorf/">Jamstack! Smashing workshop</a>.
 </h3>
 <p align="center">
   Resources: 

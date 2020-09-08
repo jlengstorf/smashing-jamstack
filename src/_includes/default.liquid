@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }}</title>
+
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+          'Segoe UI Symbol';
+        margin: 0;
+      }
+      header {
+        background: black;
+        color: white;
+        display: flex;
+        font-weight: bold;
+        justify-content: space-between;
+        padding: 1rem 5vw;
+      }
+      header a {
+        color: inherit;
+        text-decoration: none;
+      }
+      nav a {
+        margin-left: 1rem;
+      }
+      main {
+        margin: 5rem auto;
+        max-width: 600px;
+      }
+      footer {
+        color: #555;
+        font-size: 0.875rem;
+        padding: 2rem 5vw;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/">Smashing Jamstack Site</a>
+      <nav>
+        <a href="/">Say Hello</a>
+        <a href="/photos/">Photos</a>
+        <a href="/color/">Color</a>
+        <a href="/combo/">Combo</a>
+      </nav>
+    </header>
+
+    <main>{{ content }}</main>
+
+    <footer>
+      <a href="https://github.com/jlengstorf/smashing-jamstack"
+        >see the source code</a
+      >
+    </footer>
+  </body>
+</html>
