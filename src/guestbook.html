@@ -47,7 +47,6 @@ title: Sign Our Guestbook
     signatures.forEach((signature) => {
       const li = document.createElement('li');
       const date = new Date(signature.date).toLocaleDateString();
-      console.log(date);
 
       li.innerText = `${signature.name} was here on ${date}`;
 

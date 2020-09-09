@@ -62,7 +62,7 @@ async function addSignature(name) {
       mutation ($name: String! $date: Time!) {
         createGuestBook(data: {
           name: $name,
-          date: $time
+          date: $date
         }) {
           _id
         }
