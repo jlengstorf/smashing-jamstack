@@ -1,0 +1,80 @@
+---
+layout: default
+title: Sign Our Guestbook
+---
+
+<style>
+  button {
+    background: black;
+    border: none;
+    border-radius: 0.5rem;
+    color: white;
+    display: block;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 1rem auto;
+    padding: 0.5rem 1rem;
+  }
+</style>
+
+<script
+  type="text/javascript"
+  src="https://identity.netlify.com/v1/netlify-identity-widget.js"
+></script>
+
+<h1>{{ title }}</h1>
+
+<div data-netlify-identity-menu></div>
+
+<button>Sign The Guestbook</button>
+
+<h2>Previous Guests</h2>
+
+<ul class="signatures"></ul>
+
+<script>
+  function updateSignatures(signatures) {
+    const container = document.querySelector('.signatures');
+    container.innerHTML = '';
+
+    signatures.forEach((signature) => {
+      const li = document.createElement('li');
+      const date = new Date(signature.date).toLocaleDateString();
+
+      li.innerText = `${signature.name} was here on ${date}`;
+
+      container.appendChild(li);
+    });
+  }
+
+  async function getSignatures() {
+    const signatures = await fetch(
+      '/.netlify/functions/get-signatures'
+    ).then((response) => response.json());
+
+    updateSignatures(signatures);
+  }
+
+  async function signGuestBook() {
+    const user = window.netlifyIdentity.currentUser();
+    const token = user ? user.token.access_token : false;
+
+    const signatures = await fetch('/.netlify/functions/add-signature', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .catch((error) => console.error(error));
+
+    if (signatures) {
+      updateSignatures(signatures);
+    }
+  }
+
+  const button = document.querySelector('button');
+  button.addEventListener('click', signGuestBook);
+
+  getSignatures();
+</script>
