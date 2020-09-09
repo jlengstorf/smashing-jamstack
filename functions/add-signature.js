@@ -11,9 +11,7 @@ exports.handler = async (_event, context) => {
   }
 
   const name = user.user_metadata.full_name || user.email;
-  const result = await addSignature(name);
-
-  console.log(result.errors);
+  await addSignature(name);
 
   const signatures = await getSignatures();
 
