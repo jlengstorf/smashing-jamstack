@@ -64,13 +64,12 @@ title: Sign Our Guestbook
   }
 
   async function signGuestBook() {
-    const jwt = await window.netlifyIdentity.refresh();
-    const token = jwt.access_token;
+    const { access_token } = window.netlifyIdentity.currentUser().token;
 
     const signatures = await fetch('/.netlify/functions/sign-guestbook', {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${access_token}`,
       },
     })
       .then((response) => response.json())
