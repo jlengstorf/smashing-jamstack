@@ -1,0 +1,7 @@
+type Boop {
+  time: Time!
+}
+
+type Query {
+  allBoops: [Boop!]!
+}

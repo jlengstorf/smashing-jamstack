@@ -1,0 +1,57 @@
+---
+layout: default
+title: Please Boop This Dog
+---
+
+<style>
+  img {
+    width: 100%;
+  }
+
+  button {
+    background: black;
+    border: none;
+    border-radius: 0.5rem;
+    color: white;
+    display: block;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 1rem auto;
+    padding: 0.5rem 1rem;
+  }
+
+  p {
+    text-align: center;
+  }
+</style>
+
+<h1>{{ title }}</h1>
+
+<img alt="a close-up of a corgi" src="https://images.unsplash.com/photo-1519098901909-b1553a1190af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1934&q=80"/>
+
+<button class="boop">Boop!</button>
+
+<p>
+  This corgi has been booped
+  <span class="count"></span>.
+</p>
+
+<script>
+  async function doBoops(body = {}) {
+    const count = await fetch('/.netlify/functions/boop', {
+      method: 'POST',
+      body: JSON.stringify(body)
+    })
+    .then((response) => response.text());
+    
+    document.querySelector('.count').innerText = `${count} time${count === 1 ? '' : 's'}`;
+  }
+
+  const button = document.querySelector('.boop');
+
+  button.addEventListener('click', (event) => {
+    doBoops({ add: true });
+  });
+  
+  doBoops();
+</script>
