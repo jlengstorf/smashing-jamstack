@@ -14,7 +14,7 @@ async function getBoopCount() {
   const result = await sendQuery({
     query: `
       query {
-        allBoops {
+        allBoops(_size: 10000) {
           data {
             time
           }
