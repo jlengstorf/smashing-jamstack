@@ -27,7 +27,10 @@ title: Please Boop This Dog
 
 <h1>{{ title }}</h1>
 
-<img alt="a close-up of a corgi" src="https://images.unsplash.com/photo-1519098901909-b1553a1190af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1934&q=80"/>
+<img
+  alt="a close-up of a corgi"
+  src="https://images.unsplash.com/photo-1519098901909-b1553a1190af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1934&q=80"
+/>
 
 <button class="boop">Boop!</button>
 
@@ -37,21 +40,20 @@ title: Please Boop This Dog
 </p>
 
 <script>
-  async function doBoops(body = {}) {
-    const count = await fetch('/.netlify/functions/boop', {
+  async function sendAndUpdate(action) {
+    const count = await fetch(`/.netlify/functions/${action}`, {
       method: 'POST',
-      body: JSON.stringify(body)
-    })
-    .then((response) => response.text());
-    
-    document.querySelector('.count').innerText = `${count} time${count === 1 ? '' : 's'}`;
+    }).then((response) => response.text());
+
+    // update the count on the page
+    const label = count === 1 ? 'time' : 'times';
+    document.querySelector('.count').innerText = `${count} ${label}`;
   }
 
+  // add a new boop whenever the button is clicked
   const button = document.querySelector('.boop');
+  button.addEventListener('click', () => sendAndUpdate('add-boop'));
 
-  button.addEventListener('click', (event) => {
-    doBoops({ add: true });
-  });
-  
-  doBoops();
+  // on initial page load, get the current boop count
+  sendAndUpdate('get-boops');
 </script>

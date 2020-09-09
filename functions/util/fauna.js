@@ -10,23 +10,8 @@ async function sendQuery({ query, variables = {} }) {
   });
 }
 
-exports.handler = async (event) => {
-  const body = event.body ? JSON.parse(event.body) : {};
-
-  if (body.add) {
-    await sendQuery({
-      query: `
-        mutation ($time: Time!) {
-          createBoop(data: { time: $time }) {
-            time
-          }
-        }
-      `,
-      variables: { time: new Date().toISOString() },
-    });
-  }
-
-  const count = await sendQuery({
+async function getBoopCount() {
+  return await sendQuery({
     query: `
       query {
         allBoops {
@@ -39,9 +24,20 @@ exports.handler = async (event) => {
   })
     .then((response) => response.json())
     .then((result) => result.data.allBoops.data.length);
+}
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify(count),
-  };
-};
+async function addBoop() {
+  await sendQuery({
+    query: `
+      mutation ($time: Time!) {
+        createBoop(data: { time: $time }) {
+          time
+        }
+      }
+    `,
+    variables: { time: new Date().toISOString() },
+  });
+}
+
+exports.getBoopCount = getBoopCount;
+exports.addBoop = addBoop;
