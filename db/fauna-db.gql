@@ -1,0 +1,13 @@
+type Boop {
+  time: Time!
+}
+
+type GuestBook {
+  name: String!
+  date: Time!
+}
+
+type Query {
+  allBoops: [Boop!]!
+  allGuestBook: [GuestBook!]!
+}

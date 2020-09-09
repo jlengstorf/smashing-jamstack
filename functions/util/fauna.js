@@ -39,5 +39,40 @@ async function addBoop() {
   });
 }
 
+async function getSignatures() {
+  return await sendQuery({
+    query: `
+      query {
+        allGuestBook {
+          data {
+            name
+            date
+          }
+        }
+      }
+    `,
+  })
+    .then((response) => response.json())
+    .then((result) => result.data.allGuestBook.data);
+}
+
+async function addSignature(name) {
+  await sendQuery({
+    query: `
+      mutation ($name: String! $date: Time!) {
+        createGuestBook(data: {
+          name: $name,
+          date: $time
+        }) {
+          _id
+        }
+      }
+    `,
+    variables: { name, date: new Date().toISOString() },
+  });
+}
+
 exports.getBoopCount = getBoopCount;
 exports.addBoop = addBoop;
+exports.getSignatures = getSignatures;
+exports.addSignature = addSignature;
