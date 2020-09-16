@@ -80,13 +80,14 @@ permalink: "movies/{{ movie.title | slug }}/"
     const data = new FormData(event.target);
     const movie_id = data.get('movie_id');
     const text = data.get('text');
+    const token = user.token.access_token;
 
-    console.log(user.token.access_token)
+    console.log({ token })
 
     const result = await fetch('/.netlify/functions/add-comment', {
       method: 'POST',
       header: {
-        Authorization: `Bearer ${user.token.access_token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         movie_id,
