@@ -86,7 +86,7 @@ permalink: "movies/{{ movie.title | slug }}/"
 
     const result = await fetch('/.netlify/functions/add-comment', {
       method: 'POST',
-      header: {
+      headers: {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
