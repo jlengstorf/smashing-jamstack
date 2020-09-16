@@ -6,9 +6,15 @@
     <title>{{ meta.title }} · Learn With Jason</title>
     <link rel="stylesheet" href="https://use.typekit.net/jwa3agu.css" />
     <link rel="stylesheet" href="/css/global.css" />
+    <script
+      type="text/javascript"
+      src="https://identity.netlify.com/v1/netlify-identity-widget.js"
+    ></script>
   </head>
   <body>
     {% include header.html %}
+
+    <div data-netlify-identity-menu></div>
 
     <main>
       {{ content }}
