@@ -1,0 +1,65 @@
+---
+pagination:
+  data: movies
+  size: 1
+  alias: movie
+permalink: 'movies/{{ movie.title | slug }}/'
+---
+
+<style>
+  .poster {
+    float: left;
+    margin: 0 1.5rem 2rem 0;
+    width: 200px;
+  }
+
+  .comment-display,
+  .add-comment {
+    clear: both;
+    margin: 0 auto;
+    max-width: 400px;
+  }
+
+  .add-comment textarea {
+    border: 1px solid var(--gray);
+    border-radius: 0.5rem;
+    display: block;
+    height: 80px;
+    width: 100%;
+  }
+
+  .add-comment button {
+    background: var(--pink-text);
+    border: none;
+    border-radius: 0.5rem;
+    color: var(--black);
+    font-family: var(--font-family);
+    font-size: 1.25rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-top: 1rem;
+    padding: 0.5rem 2rem;
+    text-transform: uppercase;
+  }
+</style>
+
+<img src="{{ movie.poster }}" alt="{{ movie.title }}" class="poster" />
+
+<h1>{{ movie.title }}</h1>
+
+<p>{{ movie.body }}</p>
+
+<div class="comment-display">
+  <h2>Comments on {{ movie.title }}</h2>
+  <div class="comments"></div>
+</div>
+
+<form class="add-comment">
+  <h2>Add a Comment</h2>
+  <label for="text">
+    Your Comment
+    <textarea id="text" name="text"></textarea>
+  </label>
+  <input type="hidden" name="movie_id" value="{{ movie.id }}" />
+  <button type="submit">Add Comment</button>
+</form>
