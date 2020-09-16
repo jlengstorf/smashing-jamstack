@@ -1,0 +1,9 @@
+---
+pagination:
+  data: movies
+  size: 1
+  alias: movie
+permalink: "movies/{{ movie.title | slug }}/"
+---
+
+<h1>{{movie.title}}</h1>

@@ -69,3 +69,27 @@ main {
     background-position: 0 0;
   }
 }
+
+.netlify-identity-menu {
+  margin: 3rem auto 0;
+  display: flex;
+  padding: 0;
+  width: 400px;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.netlify-identity-item {
+  list-style: none;
+}
+
+.netlify-identity-item a {
+  display: block;
+  background: var(--pink-text);
+  padding: 0.5rem 2rem;
+  text-transform: uppercase;
+  font-weight: 900;
+  text-decoration: none;
+  color: var(--black);
+  border-radius: 0.5rem;
+}

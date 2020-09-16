@@ -1,0 +1,43 @@
+<style>
+  .movies {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, 300px);
+    justify-content: center;
+  }
+
+  .movie>a {
+    display: block;
+    margin: 0;
+  }
+
+  .movie img {
+    display: block;
+    width: 100%;
+  }
+
+  .movie h2 {
+    margin: 0;
+  }
+
+  .movie h2 a {
+    color: var(--black);
+    text-decoration: none;
+  }
+</style>
+
+<h1>My Movies</h1>
+
+<section class="movies">
+  {% for movie in movies %}
+    <div class="movie">
+      <a href="/movies/{{ movie.title | slug }}">
+        <img alt="{{ movie.title }}" src="{{ movie.poster }}"/>
+      </a>
+      <h2>
+        <a href="/movies/{{ movie.title | slug }}">{{ movie.title }}</a>
+      </h2>
+      <a href="/movies/{{ movie.title | slug }}">details &rarr;</a>
+    </div>
+  {% endfor %}
+</section>
