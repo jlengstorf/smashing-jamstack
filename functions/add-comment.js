@@ -3,7 +3,6 @@ const fetch = require('node-fetch');
 exports.handler = async (event, context) => {
   const { movie_id, text } = JSON.parse(event.body);
   const { user } = context.clientContext;
-  console.log(context);
 
   if (!user) {
     return {

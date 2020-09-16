@@ -14,10 +14,17 @@ permalink: "movies/{{ movie.title | slug }}/"
     width: 200px;
   }
 
+  .comment-display,
   .add-comment {
     clear: both;
     margin: 0 auto;
     max-width: 400px;
+  }
+
+  .comment-display p {
+    border-bottom: 1px solid var(--gray);
+    margin: 0;
+    padding: 1rem 0;
   }
 
   .add-comment textarea {
@@ -52,7 +59,11 @@ permalink: "movies/{{ movie.title | slug }}/"
 
 <p>{{ movie.body }}</p>
 
-<div class="comments"></div>
+<div class="comment-display">
+  <h2>Comments on
+    {{ movie.title }}</h2>
+  <div class="comments"></div>
+</div>
 
 <form class="add-comment" method="POST">
   <h2>Add a Comment</h2>
@@ -65,6 +76,27 @@ permalink: "movies/{{ movie.title | slug }}/"
 </form>
 
 <script>
+  async function loadComments() {
+    const comments = await fetch('/.netlify/functions/load-comments', {
+      method: 'POST',
+      body: JSON.stringify({
+        movie_id: '{{ movie.id }}',
+      }),
+    }).then((response) => response.json());
+
+    const container = document.querySelector('.comments');
+    container.innerHTML = '';
+
+    comments.forEach((comment) => {
+      const el = document.createElement('p');
+      el.innerText = comment.text;
+
+      container.appendChild(el);
+    })
+  }
+
+  loadComments();
+ 
   const form = document.querySelector('.add-comment');
 
   form.addEventListener('submit', async (event) => {
@@ -82,8 +114,6 @@ permalink: "movies/{{ movie.title | slug }}/"
     const text = data.get('text');
     const token = user.token.access_token;
 
-    console.log({ token })
-
     const result = await fetch('/.netlify/functions/add-comment', {
       method: 'POST',
       headers: {
@@ -93,6 +123,10 @@ permalink: "movies/{{ movie.title | slug }}/"
         movie_id,
         text,
       })
-    })
+    });
+
+    event.target.querySelector('textarea').value = '';
+
+    loadComments();
   })
 </script>
