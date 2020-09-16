@@ -5,3 +5,6 @@ public
 .next
 out
 .env
+
+# Local Netlify folder
+.netlify
