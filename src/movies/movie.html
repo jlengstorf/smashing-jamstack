@@ -6,4 +6,92 @@ pagination:
 permalink: "movies/{{ movie.title | slug }}/"
 ---
 
-<h1>{{movie.title}}</h1>
+<style>
+  .poster {
+    float: left;
+    margin-bottom: 2rem;
+    margin-right: 1.5rem;
+    width: 200px;
+  }
+
+  .add-comment {
+    clear: both;
+    margin: 0 auto;
+    max-width: 400px;
+  }
+
+  .add-comment textarea {
+    border: 1px solid var(--gray);
+    border-radius: 0.5rem;
+    display: block;
+    height: 80px;
+    width: 100%;
+  }
+  
+  .add-comment button {
+    background: var(--pink-text);
+    border: none;
+    border-radius: 0.5rem;
+    color: var(--black);
+    font-family: var(--font-family);
+    font-size: 1.25rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-top: 1rem;
+    min-width: 150px;
+    padding: 0.5rem 2rem;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+</style>
+
+<img class="poster" src="{{ movie.poster }}" alt="{{ movie.title }}"/>
+
+<h1>{{ movie.title }}</h1>
+
+<p>{{ movie.body }}</p>
+
+<div class="comments"></div>
+
+<form class="add-comment" method="POST">
+  <h2>Add a Comment</h2>
+  <label for="text">
+    Your Comment
+    <textarea id="text" name="text"></textarea>
+  </label>
+  <input type="hidden" name="movie_id" value="{{ movie.id }}"/>
+  <button type="submit">Add Comment</button>
+</form>
+
+<script>
+  const form = document.querySelector('.add-comment');
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const user = window.netlifyIdentity.currentUser();
+
+    if (!user) {
+      alert('please sign in to comment!');
+      return;
+    }
+
+    const data = new FormData(event.target);
+    const movie_id = data.get('movie_id');
+    const text = data.get('text');
+
+    console.log(user.token.access_token)
+
+    const result = await fetch('/.netlify/functions/add-comment', {
+      method: 'POST',
+      header: {
+        Authorization: `Bearer ${user.token.access_token}`,
+      },
+      body: JSON.stringify({
+        movie_id,
+        text,
+      })
+    })
+  })
+</script>

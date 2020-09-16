@@ -4,7 +4,8 @@
   "author": "Jason Lengstorf <jason@lengstorf.com> (https://jason.af)",
   "license": "MIT",
   "dependencies": {
-    "@11ty/eleventy": "^0.11.0"
+    "@11ty/eleventy": "^0.11.0",
+    "node-fetch": "^2.6.1"
   },
   "scripts": {
     "dev": "eleventy --serve",
