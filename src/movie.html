@@ -86,6 +86,8 @@ permalink: 'movies/{{ movie.title | slug }}/'
 
   loadComments();
 
+  setInterval(() => loadComments(), 5000);
+
   const form = document.querySelector('.add-comment');
 
   form.addEventListener('submit', async (event) => {
