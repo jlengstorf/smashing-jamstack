@@ -15,6 +15,7 @@ exports.handler = async (event, context) => {
   const data = await fetch('https://lasting-snail-67.hasura.app/v1/graphql', {
     method: 'POST',
     headers: {
+      'X-Hasura-Admin-Secret': process.env.HASURA_ADMIN_SECRET,
       'X-Hasura-Role': 'user',
       'X-Hasura-User-ID': user.sub,
     },
